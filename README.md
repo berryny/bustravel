@@ -1,3 +1,37 @@
+# Bus to Montreal for the Osheaga festival!
+
+## Pre-installation
+
+Check if the following are installed
+```
+node --version
+npm --version
+git --version
+```
+
+## Setup
+```
+sudo npm install -g create-react-app
+create-react-app coding-challenge-frontend-b
+cd coding-challenge-frontend-b
+sudo npm install react-router-dom
+sudo npm install jquery --save
+sudo npm install react-bootstrap bootstrap --save
+npm install
+```
+
+## Getting Started on Heroku with Node.js
+
+To quickly setup into `/usr/local/lib/heroku` and `/usr/local/bin/heroku`, run this script (script requires sudo and not Windows compatible):
+```
+sudo curl https://cli-assets.heroku.com/install.sh | sh
+heroku --version
+heroku login
+cd coding-challenge-frontend-b
+heroku create
+```
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
