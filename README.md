@@ -1,5 +1,9 @@
 # Bus to Montreal for the Osheaga festival!
 
+## Text Editor
+
+[Atom](https://atom.io/)
+
 ## Pre-installation
 
 Check if the following are installed
@@ -33,9 +37,53 @@ heroku create
 git remote -v
 heroku git:remote -a young-waters-80648
 ```
+
+### Error message
+````
+remote:
+To https://git.heroku.com/young-waters-80648.git
+ ! [remote rejected] master -> master (pre-receive hook declined)
+error: failed to push some refs to 'https://git.heroku.com/young-waters-80648.git'
+````
+
+Use `heroku logs` to view Activity Feed > Build Log
+```
+-----> Node.js app detected
+-----> Build failed
+ !     Two different lockfiles found: package-lock.json and yarn.lock
+       Both npm and yarn have created lockfiles for this application,
+       but only one can be used to install dependencies. Installing
+       dependencies using the wrong package manager can result in missing
+       packages or subtle bugs in production.
+       - To use npm to install your application's dependencies please delete
+         the yarn.lock file.
+         $ git rm yarn.lock
+       - To use yarn to install your application's dependences please delete
+         the package-lock.json file.
+         $ git rm package-lock.json
+
+       https://help.heroku.com/0KU2EM53
+ !     Push rejected, failed to compile Node.js app.
+ !     Push failed
+```
+
+### Fix
+
 ```
 sudo git rm yarn.lock
 sudo git rm package-lock.json
+git add .
+git commit -m "react-create-app on Heroku"
+```
+
+In Atom, push files to master
+- Stage All
+- Add Commit message
+  - Click commit message button
+- Click Push (1)
+- Once files are pushed, type the command line
+```
+git push heroku master
 ```
 
 [Read more](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
