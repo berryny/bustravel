@@ -23,14 +23,22 @@ npm install
 ## Getting Started on Heroku with Node.js
 
 To quickly setup into `/usr/local/lib/heroku` and `/usr/local/bin/heroku`, run this script (script requires sudo and not Windows compatible):
+
 ```
 sudo curl https://cli-assets.heroku.com/install.sh | sh
 heroku --version
 heroku login
 cd coding-challenge-frontend-b
 heroku create
+git remote -v
+heroku git:remote -a young-waters-80648
+```
+```
+sudo git rm yarn.lock
+sudo git rm package-lock.json
 ```
 
+[Read more](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
