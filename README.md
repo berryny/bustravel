@@ -1,8 +1,12 @@
 # Bus to Montreal for the Osheaga festival!
 
-## Text Editor
+## Enviroment
 
-[Atom](https://atom.io/)
+- [Atom](https://atom.io/)
+- Browser Extensions for Chrome and Firefox
+  - [React Developer Tools](https://reactjs.org/)
+  - [Redux DevTools](https://redux.js.org/)
+
 
 ## Pre-installation
 
@@ -21,6 +25,8 @@ cd coding-challenge-frontend-b
 sudo npm install react-router-dom
 sudo npm install jquery --save
 sudo npm install react-bootstrap bootstrap --save
+sudo npm install react-datepicker --save
+sudo npm install --save react-http-request
 npm install
 ```
 
@@ -33,6 +39,11 @@ sudo curl https://cli-assets.heroku.com/install.sh | sh
 heroku --version
 heroku login -i
 cd coding-challenge-frontend-b
+```
+
+```
+sudo chown -R $(whoami) $(brew --prefix)/*
+brew install heroku/brew/heroku
 ```
 
 Creating/Naming the Heroku App
@@ -111,13 +122,45 @@ yarn start
 
 The app can be found at https://goto-osheaga-festival-2020.herokuapp.com/
 
-
+```
+# npm ERR! Cannot read property 'match' of undefined
+sudo rm -rf package-lock.json
+sudo npm install
+```
 
 ## Resources
+- [Learn about React Router](https://reacttraining.com/react-router/)
 - [Read more on Heroku Setup](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
   - [Run the app locally](https://devcenter.heroku.com/articles/getting-started-with-nodejs#run-the-app-locally)
 - [Read more on changing remote url](https://help.github.com/en/articles/changing-a-remotes-url)
 - [REST-API](https://reqres.in/)
+- [React Datepicker](https://reactdatepicker.com/)
+- [Using Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
+
+## API
+
+```
+<Request
+  url='https://napi.busbud.com'
+  method='get'
+  accept='application/vnd.busbud+json; version=2; profile=https://schema.busbud.com/v2/'
+  accept-language='fr-CH, fr;q=0.9, en-US, en;q=0.5, *;q=0.5'
+  X-Busbud-Token='PARTNER_AHm3M6clSAOoyJg4KyCg7w'
+  verbose={true}
+>
+  {
+    ({error, result, loading}) => {
+      if (loading) {
+        console.log('loading',loading);
+        return <div>loading...</div>;
+      } else {
+        console.log('result',result);
+        return <div>{ JSON.stringify(result) }</div>;
+      }
+    }
+  }
+</Request>
+```
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

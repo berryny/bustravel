@@ -1,6 +1,85 @@
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import './App.css';
+
+import Request from 'react-http-request';
+
+import Search from './search';
+
+class App extends Component {
+  render() {
+    return (
+    <Router>
+        <header className="">Nav Bar</header>
+        <main id="main" role="main" className="flex-shrink-0">
+          <Search />
+          {/* <Switch>
+            <Route exact path="/search">
+              <Search />
+            </Route>
+          </Switch> */}
+        </main>
+        <footer className="footer mt-auto py-3">
+          <div className="container">
+            <span className="text-muted">Judi Desire</span>
+          </div>
+        </footer>
+    </Router>
+    );
+  }
+}
+
+export default App;
+
+/*
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: null,
+    };
+  }
+  // componentDidMount() {
+
+    fetch('https://napi.busbud.com', {
+      method: "GET",
+      // body: JSON.stringify(data),
+      headers: {
+        // "Content-Type": "application/vnd.busbud+json",
+        "Accept": "application/vnd.busbud+json; version=2; profile=https://schema.busbud.com/v2/",
+        "X-Busbud-Token": "PARTNER_AHm3M6clSAOoyJg4KyCg7w",
+        "Accept-Language": "fr-CH, fr;q=0.9, en-US, en;q=0.5, *;q=0.5"
+      },
+      credentials: "same-origin"
+    }).then(function(response) {
+      console.log("response",response);
+      // response.status     //=> number 100–599
+      // response.statusText //=> String
+      // response.headers    //=> Headers
+      // response.url        //=> String
+
+      return response.text()
+    }, function(error) {
+      error.message //=> String
+    })
+
+    // fetch('https://napi.busbud.com')
+    //   .then(response => response.json())
+    //   .then(data => this.setState({ data }));
+
+
+  // }
+  render() {
+    return (
+      <div>Hello World!</div>
+    );
+  }
+
+}
+*/
+/*
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
 
 function App() {
   return (
@@ -24,3 +103,4 @@ function App() {
 }
 
 export default App;
+*/
