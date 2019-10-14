@@ -31,19 +31,32 @@ To quickly setup into `/usr/local/lib/heroku` and `/usr/local/bin/heroku`, run t
 ```
 sudo curl https://cli-assets.heroku.com/install.sh | sh
 heroku --version
-heroku login
+heroku login -i
 cd coding-challenge-frontend-b
-heroku create
+```
+
+Creating/Naming the Heroku App
+- Name must start with a letter, end with a letter or digit and can only contain lowercase letters, digits, and dashes.
+
+```
+heroku create goto-osheaga-festival-2020
+heroku git:remote -a goto-osheaga-festival-2020
 git remote -v
-heroku git:remote -a young-waters-80648
+```
+
+Changing a remote's URL/Heroku App in git
+
+The `git remote set-url` command changes an existing remote repository URL.
+```
+git remote set-url heroku https://git.heroku.com/<new-filename>
 ```
 
 ### Error message
 ````
 remote:
-To https://git.heroku.com/young-waters-80648.git
+To https://git.heroku.com/goto-osheaga-festival-2020.git
  ! [remote rejected] master -> master (pre-receive hook declined)
-error: failed to push some refs to 'https://git.heroku.com/young-waters-80648.git'
+error: failed to push some refs to 'https://git.heroku.com/goto-osheaga-festival-2020.git'
 ````
 
 Use `heroku logs` to view Activity Feed > Build Log
@@ -76,17 +89,35 @@ git add .
 git commit -m "react-create-app on Heroku"
 ```
 
-In Atom, push files to master
-- Stage All
+In Atom, push files to master branch
+- Stage All <- Unstaged Changes to Staged Changes
 - Add Commit message
-  - Click commit message button
-- Click Push (1)
-- Once files are pushed, type the command line
+  - Click **Commit to master** button
+- Click **Push (1)**
+- Once files are successfully pushed to master, type the command line
 ```
 git push heroku master
 ```
 
-[Read more](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
+To open Heroku, type command line
+```
+heroku open
+```
+
+To start React App, type command line
+```
+yarn start
+```
+
+The app can be found at https://goto-osheaga-festival-2020.herokuapp.com/
+
+
+
+## Resources
+- [Read more on Heroku Setup](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
+  - [Run the app locally](https://devcenter.heroku.com/articles/getting-started-with-nodejs#run-the-app-locally)
+- [Read more on changing remote url](https://help.github.com/en/articles/changing-a-remotes-url)
+- [REST-API](https://reqres.in/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
