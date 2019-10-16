@@ -20,9 +20,9 @@ class App extends Component {
   render() {
     return (
     <Router>
-        <header className="">
+        <header className="text-center">
           <Welcome client="Busbud" message="Bus to the Osheaga festival!"/>
-          <nav>NavBar</nav>
+          {/*<nav>NavBar</nav>*/}
         </header>
         <main id="main" role="main" className="flex-shrink-0">
           <Home />

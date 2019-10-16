@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import FormControl from 'react-bootstrap/FormControl';
 import FormCheck from 'react-bootstrap/FormCheck';
 import Button from 'react-bootstrap/Button';
@@ -25,11 +27,23 @@ class Home extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async componentDidMount() {
-    const urlIP = 'http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,currency';
-    const response = await fetch(urlIP);
-    const ipdata = await response.json();
-    this.setState({ getUsersIPFeed: ipdata });
+  // async componentDidMount() {
+  //   const urlIP = 'http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,currency';
+  //   const response = await fetch(urlIP);
+  //   const ipdata = await response.json();
+  //   this.setState({ getUsersIPFeed: ipdata });
+  // }
+
+  componentDidMount(){
+    const urlIPAPI = 'http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,currency';
+    fetch(urlIPAPI).then(function(response) {
+      return response.json()
+    }, function(error) {
+      console.log('error', error.message );
+    }).then(ipdata => {
+      console.log('ipdata',ipdata);
+      this.setState({ getUsersIPFeed: ipdata });
+    });
   }
 
   renderOptions (data){
@@ -72,30 +86,32 @@ class Home extends Component {
       <div>
       <Container>
         <Form className="form-inline needs-validation" onSubmit={this.handleSubmit} novalidate>
-          <Form.Group controlId="bustkts.SelectOrigin" className="mr-2">
-            <Form.Label>Leaving from </Form.Label>
-            <Form.Control as="select" name="bustkts.SelectOrigin" placeholder="Select" required>
-              {this.renderOptions(CodeData)}
-            </Form.Control>
-          </Form.Group>
-          <Form.Group controlId="bustkts.SelectDestination" className="mr-2">
-            <Form.Label>Going to </Form.Label>
-            <Form.Control as="select" name="bustkts.SelectDestination" placeholder="Select" required>
-              {this.renderOptions(CodeData)}
-            </Form.Control>
-          </Form.Group>
-          <Form.Group className="mr-2">
-            <Form.Control type="text" placeholder="2020-08-20" name="bustkts.SelectDate" value="2020-08-20" readOnly />
-          </Form.Group>
-          <Form.Group controlId="bustkts.SelectPassenger" className="mr-2">
-            <Form.Label>Passenger</Form.Label>
-            <Form.Control as="select" name="bustkts.SelectPassenger">
-              <option>1</option>
-            </Form.Control>
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Search
-          </Button>
+          <Row className="mx-auto">
+            <Form.Group controlId="bustkts.SelectOrigin" className="m-2">
+              <Form.Label>Leaving from </Form.Label>
+              <Form.Control as="select" name="bustkts.SelectOrigin" placeholder="Select" required>
+                {this.renderOptions(CodeData)}
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="bustkts.SelectDestination" className="m-2">
+              <Form.Label>Going to </Form.Label>
+              <Form.Control as="select" name="bustkts.SelectDestination" placeholder="Select" required>
+                {this.renderOptions(CodeData)}
+              </Form.Control>
+            </Form.Group>
+            <Form.Group className="m-2">
+              <Form.Control className="m-2" type="text" placeholder="2020-08-20" name="bustkts.SelectDate" value="2020-08-20" readOnly />
+            </Form.Group>
+            <Form.Group controlId="bustkts.SelectPassenger" className="m-2">
+              <Form.Label>Passenger</Form.Label>
+              <Form.Control as="select" name="bustkts.SelectPassenger">
+                <option>1</option>
+              </Form.Control>
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Search
+            </Button>
+          </Row>
         </Form>
 
       </Container>

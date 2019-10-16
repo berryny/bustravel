@@ -21,12 +21,10 @@ class BusInfo extends Component {
 
 
   componentDidMount(){
-    console.log('this.props.data',this.props.data);
+    // console.log('this.props.data',this.props.data);
     const getObj = this.props.data
-    // console.log('getObj',getObj.origin);
     const url = "https://napi.busbud.com/x-departures/"+getObj.origin+"/"+getObj.destination+"/"+getObj.date+"?adult=1&child=0&senior=0&lang="+getBrowserLang+"&currency=USD";
     // const url = "https://napi.busbud.com/x-departures/dr5reg/f25dvk/2020-08-02?adult=1&child=0&senior=0&lang=en&currency=USD";
-    console.log('url',url);
     fetch(url, {
       method: "GET",
       headers: {
@@ -47,35 +45,13 @@ class BusInfo extends Component {
         location: data.locations,
         operator: data.operators
       });
-      // const departures = data.departures;
-      // const operators = data.operators;
-
-      // return data.departures.map((item, o) => (
-      //
-      //   <Card style={{ width: '18rem' }}>
-      //     <Card.Body>
-      //       operators.map((op, i) =>
-      //       if (item.operator_id === op.id) {
-      //         return <Card.Title key={i}>{op.name}</Card.Title>
-      //       }
-      //
-      //     )
-      //       <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-      //       <Card.Text>
-      //         Some quick example text to build on the card title and make up the bulk of
-      //         the card's content.
-      //       </Card.Text>
-      //       <Card.Link href="#">Card Link</Card.Link>
-      //       <Card.Link href="#">Another Link</Card.Link>
-      //     </Card.Body>
-      //   </Card>
-      //
-      // ))
 
     })
 
   }
+
   // <p>departure time, the arrival time, the location name</p>
+  // <p>the price (use prices.total of the departure)</p>
   render() {
 
     const display_city = (cities_id) =>
@@ -83,14 +59,18 @@ class BusInfo extends Component {
         if ( cities_id === cityObj.id) {
           return cityObj.name;
         }
-      })
+    })
 
     const display_location = (location_id) =>
       this.state.location.map((local, l) => {
         if (location_id === local.id) {
           return local.address[0];
         }
-      })
+    })
+
+    const display_price = (price_amount) => {
+      return price_amount/Math.pow(10, price_amount.toString().length-2);
+    }
 
     const display_buses = this.state.departures.map((ele, idx) =>
     {
@@ -112,7 +92,7 @@ class BusInfo extends Component {
                  </div>
               </div>
             </Col>
-            <Col xs={6} md={4}><p>the price (use prices.total of the departure)</p></Col>
+            <Col xs={6} md={4}><p>{display_price(ele.prices.total)}</p></Col>
           </Row>
         )
     }
