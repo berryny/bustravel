@@ -1,4 +1,4 @@
-# Bus to Montreal for the Osheaga festival!
+# Bus to the Osheaga festival!
 
 ## Enviroment
 
@@ -136,30 +136,15 @@ sudo npm install
 - [REST-API](https://reqres.in/)
 - [React Datepicker](https://reactdatepicker.com/)
 - [Using Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
+  - [Learn all about the Fetch API](https://flaviocopes.com/fetch-api/)
+- [IP Geolocation API](https://ip-api.com/)
 
-## API
+## Fetch_API
 
+Lists all the departures for a given origin city **(New York - geohash: dr5reg)** and a given destination city **(Montréal - geohash: f25dvk)** for a given day **(the 2nd of August 2020)** for **1 adult**.
 ```
-<Request
-  url='https://napi.busbud.com'
-  method='get'
-  accept='application/vnd.busbud+json; version=2; profile=https://schema.busbud.com/v2/'
-  accept-language='fr-CH, fr;q=0.9, en-US, en;q=0.5, *;q=0.5'
-  X-Busbud-Token='PARTNER_AHm3M6clSAOoyJg4KyCg7w'
-  verbose={true}
->
-  {
-    ({error, result, loading}) => {
-      if (loading) {
-        console.log('loading',loading);
-        return <div>loading...</div>;
-      } else {
-        console.log('result',result);
-        return <div>{ JSON.stringify(result) }</div>;
-      }
-    }
-  }
-</Request>
+const url_NY2CA = "https://napi.busbud.com/x-departures/dr5reg/f25dvk/2020-08-02";
+const url_CA2NY = "https://napi.busbud.com/x-departures/f25dvk/dr5reg/2020-08-02";
 ```
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -12,11 +12,13 @@ import 'moment/min/locales.min'
 
 import "react-datepicker/dist/react-datepicker.css";
 
-import Data from './json/bus_travel_schedules.json';
+import BusInfo from '../components/busInfo';
+
+import Data from '../json/bus_travel_schedules.json';
 
 class Search extends Component {
   state = {
-    startDate: new Date()
+    startDate: new Date("2020-08-21")
   };
   handleChange = date => {
     this.setState({
@@ -43,17 +45,38 @@ class Search extends Component {
     data.set('passenger', data.get('bustkts.SelectPassenger'));
     console.log('data',data.get('bustkts.SelectOrigin'), data.get('bustkts.SelectDestination'), data.get('state.startDate'), data.get('bustkts.SelectPassenger'));
     console.log('date', data.date);
+
+
+    const url_NY2CA = "https://napi.busbud.com/x-departures/dr5reg/f25dvk/2020-08-02?adult=1&child=0&senior=0&lang=en&currency=USD";
+    const url_CA2NY = "https://napi.busbud.com/x-departures/f25dvk/dr5reg/2020-08-02?adult=1&child=0&senior=0&lang=fr&currency=CAD";
+
+    fetch(url_CA2NY, {
+      method: "GET",
+      headers: {
+        Accept: 'application/vnd.busbud+json; version=2; profile=https://schema.busbud.com/v2/',
+        'X-Busbud-Token': 'PARTNER_AHm3M6clSAOoyJg4KyCg7w'
+      }
+
+    }).then(function(response) {
+      console.log("response, response.status, response.url", response, response.status, response.url);
+      console.log("response.statusText, response.headers", response.statusText, response.headers);
+      // response.status     //=> number 100–599
+      // response.statusText //=> String
+      // response.headers    //=> Headers
+      // response.url        //=> String
+
+      return response.json()
+    }, function(error) {
+      console.log('error', error.message );
+    }).then(function(data){
+      console.log('fetched data', data);
+    })
   }
-/*
-  componentWillMount(){
-    fetch('https://napi.busbud.com', {
-      credentials: 'include'
-    });
-  }
-*/
+
   render() {
-    const { startDate } = this.state;
+
     return (
+/*
         <Container>
           <Form className="form-inline" onSubmit={this.handleSubmit}>
             <Form.Group controlId="bustkts.SelectOrigin">
@@ -70,10 +93,11 @@ class Search extends Component {
                 <option>Montreal</option>
               </Form.Control>
             </Form.Group>
-            <DatePicker
+            <DatePicker placeholderText="Click to select a date"
               selected={this.state.startDate}
               onChange={this.handleChange}
               minDate={new Date()}
+              dateFormat="yyyy-MM-dd"
               id="bustkts.SelectDate"
               locale="fr-ch"
             />
@@ -87,7 +111,11 @@ class Search extends Component {
               Search
             </Button>
           </Form>
+          <Container>
+            <BusInfo />
+          </Container>
         </Container>
+*/
     );
   }
 }

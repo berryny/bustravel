@@ -4,15 +4,28 @@ import './App.css';
 
 import Request from 'react-http-request';
 
-import Search from './search';
+import Home from './components/home';
+
+const Welcome = ({client, message}) => {
+  return (
+    <div>
+      <h1>Welcome to {client}!</h1>
+      <p>{message}</p>
+    </div>
+  )
+};
 
 class App extends Component {
+
   render() {
     return (
     <Router>
-        <header className="">Nav Bar</header>
+        <header className="">
+          <Welcome client="Busbud" message="Bus to the Osheaga festival!"/>
+          <nav>NavBar</nav>
+        </header>
         <main id="main" role="main" className="flex-shrink-0">
-          <Search />
+          <Home />
           {/* <Switch>
             <Route exact path="/search">
               <Search />
@@ -21,7 +34,7 @@ class App extends Component {
         </main>
         <footer className="footer mt-auto py-3">
           <div className="container">
-            <span className="text-muted">Judi Desire</span>
+            <span className="text-muted">Author: Judi Desire</span>
           </div>
         </footer>
     </Router>
