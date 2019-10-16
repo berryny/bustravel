@@ -12,6 +12,7 @@ class BusInfo extends Component {
     super(props)
     this.state = {
       feed: {},
+      region_country: {},
       city: [],
       departures: [],
       location: [],
@@ -68,8 +69,11 @@ class BusInfo extends Component {
         }
     })
 
-    const display_price = (price_amount) => {
-      return price_amount/Math.pow(10, price_amount.toString().length-2);
+    const display_price = (price_amount, price_currency) => {
+      console.log('this.state.feed.origin_city_id',this.state.feed.origin_city_id);
+      const num = price_amount/Math.pow(10, price_amount.toString().length-2),
+        num_display = new Intl.NumberFormat('en', { style: 'currency', currency: price_currency }).format(num)
+      return num_display;
     }
 
     const display_buses = this.state.departures.map((ele, idx) =>
@@ -92,7 +96,7 @@ class BusInfo extends Component {
                  </div>
               </div>
             </Col>
-            <Col xs={6} md={4}><p>{display_price(ele.prices.total)}</p></Col>
+            <Col xs={6} md={4}><p>{display_price(ele.prices.total, ele.prices.currency)}</p></Col>
           </Row>
         )
     }

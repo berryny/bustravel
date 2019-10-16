@@ -100,6 +100,12 @@ git add .
 git commit -m "react-create-app on Heroku"
 ```
 
+```
+# npm ERR! Cannot read property 'match' of undefined
+sudo rm -rf package-lock.json
+sudo npm install
+```
+
 In Atom, push files to master branch
 - Stage All <- Unstaged Changes to Staged Changes
 - Add Commit message
@@ -121,12 +127,6 @@ yarn start
 ```
 
 The app can be found at https://goto-osheaga-festival-2020.herokuapp.com/
-
-```
-# npm ERR! Cannot read property 'match' of undefined
-sudo rm -rf package-lock.json
-sudo npm install
-```
 
 ## Resources
 - [Learn about React Router](https://reacttraining.com/react-router/)

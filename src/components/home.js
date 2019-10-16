@@ -27,15 +27,9 @@ class Home extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // async componentDidMount() {
-  //   const urlIP = 'http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,currency';
-  //   const response = await fetch(urlIP);
-  //   const ipdata = await response.json();
-  //   this.setState({ getUsersIPFeed: ipdata });
-  // }
-
+/*
   componentDidMount(){
-    const urlIPAPI = 'http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,currency';
+    const urlIPAPI = 'https://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,currency';
     fetch(urlIPAPI).then(function(response) {
       return response.json()
     }, function(error) {
@@ -45,6 +39,7 @@ class Home extends Component {
       this.setState({ getUsersIPFeed: ipdata });
     });
   }
+*/
 
   renderOptions (data){
     return data.codes.map((item, o) => (
@@ -82,10 +77,12 @@ class Home extends Component {
   }
 
   render() {
+    const form_values = this.state.getFormValues;
+
     return (
       <div>
       <Container>
-        <Form className="form-inline needs-validation" onSubmit={this.handleSubmit} novalidate>
+        <Form className="form-inline needs-validation" onSubmit={this.handleSubmit} noValidate>
           <Row className="mx-auto">
             <Form.Group controlId="bustkts.SelectOrigin" className="m-2">
               <Form.Label>Leaving from </Form.Label>
@@ -115,7 +112,7 @@ class Home extends Component {
         </Form>
 
       </Container>
-              {this.state.getFormValues && <BusInfo data={this.state.getFormValues}/>}
+              {form_values && <BusInfo data={form_values}/>}
       </div>
 
     );
