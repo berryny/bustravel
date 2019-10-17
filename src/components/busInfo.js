@@ -87,6 +87,11 @@ class BusInfo extends Component {
 
   }
 
+  renderPagination(e){
+    e.preventDefault();
+    // console.log('renderPagination', e.target, e.target.value);
+  }
+
   // <p>departure time, the arrival time, the location name</p>
   // <p>the price (use prices.total of the departure)</p>
   render() {
