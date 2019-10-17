@@ -87,7 +87,7 @@ class BusInfo extends Component {
       if (data.complete) {
         updateStateData(data)
       } else {
-        // updateStateData(data)
+        updateStateData(data)
         this.renderPoll(this.props.data)
       }
 
@@ -180,9 +180,9 @@ class BusInfo extends Component {
       <div>
         <Container>
           <div id="departures" className="m-4">{display_buses}</div>
-          <Pagination size="sm" className="justify-content-center">
+          {/*<Pagination size="sm" className="justify-content-center">
             {pagination_list()}
-          </Pagination>
+          </Pagination>*/}
         </Container>
       </div>
 
