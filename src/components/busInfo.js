@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Pagination from 'react-bootstrap/Pagination'
+import PageItem from 'react-bootstrap/PageItem'
 
 import '../App.css';
 
@@ -14,6 +16,7 @@ class BusInfo extends Component {
       feed: {},
       region_country: {},
       city: [],
+      departures_length: 0,
       departures: [],
       location: [],
       operator: []
@@ -23,13 +26,15 @@ class BusInfo extends Component {
   componentDidMount(){
     const interval = setInterval(() => {
       this.renderSearch(this.props.data)
-    }, 5000);
+    }, 50000);
     this.renderSearch(this.props.data)
     return () => clearInterval(interval);
   }
 
   renderPoll(getObj){
-    const url_poll = "https://napi.busbud.com/x-departures/"+getObj.origin+"/"+getObj.destination+"/"+getObj.date+"/poll";
+    //?index=10
+    const url_poll = "https://napi.busbud.com/x-departures/"+getObj.origin+"/"+getObj.destination+"/"+getObj.date+"/poll?index="+this.state.departures_length;
+    console.log('url_poll',url_poll);
     fetch(url_poll, {
       method: "GET",
       headers: {
@@ -41,7 +46,7 @@ class BusInfo extends Component {
     }, function(error) {
       console.log('error', error.message );
     }).then(data => {
-      console.log('url_poll', data.complete);
+      // console.log('url_poll', data.complete);
       this.setState({
         departures: data.departures,
       });
@@ -63,11 +68,12 @@ class BusInfo extends Component {
     }, function(error) {
       console.log('error', error.message );
     }).then(data => {
-      // console.log('info',data, data.complete);
+      // console.log('info',data, data.complete, data.departures.length);
       if (data.complete) {
         this.setState({
           feed: data,
           city: data.cities,
+          departures_length: data.departures.length,
           departures: data.departures,
           location: data.locations,
           operator: data.operators
@@ -80,9 +86,22 @@ class BusInfo extends Component {
 
   }
 
+  renderPagination(e){
+    e.preventDefault();
+    // console.log('renderPagination', e.target, e.target.value);
+  }
   // <p>departure time, the arrival time, the location name</p>
   // <p>the price (use prices.total of the departure)</p>
   render() {
+    const pagination_number = this.state.departures
+    const render_pagination_item = pagination_number.map((page_item, p_num) => {
+      console.log('page_item, p_num',page_item, p_num);
+      return (
+        <Pagination.Item key={p_num} active={(p_num +1) === 1} onClick={this.renderPagination}>
+          {(p_num +1)}
+        </Pagination.Item>
+      )
+    })
 
     const display_city = (cities_id) =>
       this.state.city.map((cityObj, n) => {
@@ -148,7 +167,12 @@ class BusInfo extends Component {
     })
     return (
       <div>
-        <Container><div id="departures" className="m-4">{display_buses}</div></Container>
+        <Container>
+          <div id="departures" className="m-4">{display_buses}</div>
+          <Pagination size="sm" className="justify-content-center">
+            {render_pagination_item}
+          </Pagination>
+        </Container>
       </div>
 
     );
