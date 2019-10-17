@@ -26,7 +26,7 @@ class BusInfo extends Component {
   componentDidMount(){
     const interval = setInterval(() => {
       this.renderSearch(this.props.data)
-    }, 50000);
+    }, 20000);
     this.renderSearch(this.props.data)
     return () => clearInterval(interval);
   }
@@ -69,6 +69,7 @@ class BusInfo extends Component {
       console.log('error', error.message );
     }).then(data => {
       // console.log('info',data, data.complete, data.departures.length);
+      // console.log('data.complete',data.complete);
       if (data.complete) {
         this.setState({
           feed: data,
@@ -79,7 +80,7 @@ class BusInfo extends Component {
           operator: data.operators
         });
       } else {
-        this.renderSearch(data)
+        this.renderPoll(data)
       }
 
     })
