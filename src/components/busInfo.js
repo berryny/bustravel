@@ -19,7 +19,9 @@ class BusInfo extends Component {
       departures_length: 0,
       departures: [],
       location: [],
-      operator: []
+      operator: [],
+      per_page: 10,
+      current_page: 1
     }
   }
 
@@ -69,7 +71,7 @@ class BusInfo extends Component {
       console.log('error', error.message );
     }).then(data => {
       // console.log('info',data, data.complete, data.departures.length);
-      // console.log('data.complete',data.complete);
+      console.log('data.complete',data.complete);
       if (data.complete) {
         this.setState({
           feed: data,
@@ -80,27 +82,28 @@ class BusInfo extends Component {
           operator: data.operators
         });
       } else {
-        this.renderPoll(data)
+        this.renderPoll(this.props.data)
       }
 
     })
 
   }
 
-  renderPagination(e){
-    e.preventDefault();
-    // console.log('renderPagination', e.target, e.target.value);
-  }
-
   // <p>departure time, the arrival time, the location name</p>
   // <p>the price (use prices.total of the departure)</p>
   render() {
+
+    const renderPage = (e) => {
+      e.preventDefault();
+      console.log('renderPage', e.target, e.target.value);
+    }
+
     const pagination_number = this.state.departures
 
     let pagination_return = [];
     const pagination_list = () => {
-      for (let i = 0; i < pagination_number.length/10; i++) {
-        pagination_return.push(<Pagination.Item key={i} active={(i +1) === 1} onClick={this.renderPagination}>{i+1} </Pagination.Item>)
+      for (let i = 0; i < pagination_number.length/this.state.per_page; i++) {
+        pagination_return.push(<Pagination.Item key={i} active={(i +1) === 1} onClick={renderPage}>{i+1} </Pagination.Item>)
       }
       return pagination_return
     };
