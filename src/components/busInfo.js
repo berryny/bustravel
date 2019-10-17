@@ -95,13 +95,21 @@ class BusInfo extends Component {
   render() {
     const pagination_number = this.state.departures
     const render_pagination_item = pagination_number.map((page_item, p_num) => {
-      console.log('page_item, p_num',page_item, p_num);
+      console.log('page_item, p_num 2',page_item, p_num);
       return (
         <Pagination.Item key={p_num} active={(p_num +1) === 1} onClick={this.renderPagination}>
           {(p_num +1)}
         </Pagination.Item>
       )
     })
+
+    let pagination_return = [];
+    const pagination_list = () => {
+      for (let i = 0; i < pagination_number.length/10; i++) {
+        pagination_return.push(<Pagination.Item key={i} active={(i +1) === 1} onClick={this.renderPagination}>{i+1} </Pagination.Item>)
+      }
+      return pagination_return
+    };
 
     const display_city = (cities_id) =>
       this.state.city.map((cityObj, n) => {
@@ -170,7 +178,7 @@ class BusInfo extends Component {
         <Container>
           <div id="departures" className="m-4">{display_buses}</div>
           <Pagination size="sm" className="justify-content-center">
-            {render_pagination_item}
+            {pagination_list()}
           </Pagination>
         </Container>
       </div>
