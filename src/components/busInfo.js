@@ -112,8 +112,8 @@ class BusInfo extends Component {
                  </div>
               </div>
             </Col>
-            <Col xs={6} md={4}>
-              <p>{display_price(ele.prices.total)}</p>
+            <Col xs={12} md={4}>
+              <p className="h3">{display_price(ele.prices.total)}</p>
             </Col>
           </Row>
         )
