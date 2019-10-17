@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 import FormControl from 'react-bootstrap/FormControl';
 import FormCheck from 'react-bootstrap/FormCheck';
 import Button from 'react-bootstrap/Button';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 
 import Data from '../json/bus_travel_schedules.json';
 import CodeData from '../json/country_code.json';
@@ -108,9 +109,9 @@ class Home extends Component {
                 <option>1</option>
               </Form.Control>
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Search
-            </Button>
+            <ButtonToolbar>
+              <Button variant="primary" type="submit" size="sm">Search</Button>
+            </ButtonToolbar>
           </Row>
         </Form>
 

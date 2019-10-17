@@ -22,9 +22,13 @@ class BusInfo extends Component {
 
 
   componentDidMount(){
-    // console.log('this.props.data',this.props.data);
+    this.fetchSearch()
+  }
+
+  fetchSearch(){
+    console.log('fetchSearch');
     const getObj = this.props.data
-    const url = "https://napi.busbud.com/x-departures/"+getObj.origin+"/"+getObj.destination+"/"+getObj.date+"?adult=1&child=0&senior=0&lang="+getBrowserLang;
+    const url = "https://napi.busbud.com/x-departures/"+getObj.origin+"/"+getObj.destination+"/"+getObj.date+"/?adult=1&child=0&senior=0&lang="+getBrowserLang;
     // const url = "https://napi.busbud.com/x-departures/dr5reg/f25dvk/2020-08-02?adult=1&child=0&senior=0&lang=en&currency=USD";
     fetch(url, {
       method: "GET",
@@ -48,10 +52,7 @@ class BusInfo extends Component {
       });
 
     })
-//    window.location.reload();
-
   }
-
   // <p>departure time, the arrival time, the location name</p>
   // <p>the price (use prices.total of the departure)</p>
   render() {
