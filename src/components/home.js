@@ -52,7 +52,6 @@ class Home extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const thisSet = this.state
-    // console.log('state',this.state);
     const data = new FormData(event.target);
     const form = event.currentTarget;
     let forms = document.getElementsByClassName('needs-validation');
@@ -79,7 +78,9 @@ class Home extends Component {
     }
   }
 
+
   render() {
+    console.log('this.state',this.state);
     const form_values = this.state.getFormValues;
     const sd = this.state.search_display
 
@@ -116,9 +117,9 @@ class Home extends Component {
         </Form>
 
       </Container>
-              {/*form_values ? <BusInfo data={this.state.getFormValues}/> : null*/}
+              {form_values ? <BusInfo data={form_values}/> : ''}
               {/*this.state.getFormValues && <BusInfo data={this.state.getFormValues}/>*/}
-              {form_values && <BusInfo data={form_values}/>}
+              {/*form_values && <BusInfo data={form_values}/>*/}
       </div>
 
     );

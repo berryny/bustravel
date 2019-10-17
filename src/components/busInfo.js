@@ -20,14 +20,18 @@ class BusInfo extends Component {
     }
   }
 
-
   componentDidMount(){
-    this.fetchSearch()
+    // console.log('this.props.data',this.props.data);
+    const interval = setInterval(() => {
+      this.pollSearch(this.props.data)
+    }, 5000);
+    this.pollSearch(this.props.data)
+    return () => clearInterval(interval);
   }
 
-  fetchSearch(){
-    console.log('fetchSearch');
-    const getObj = this.props.data
+  pollSearch(getObj){
+    // console.log('getObj',getObj);
+    // const getObj = this.props.data
     const url = "https://napi.busbud.com/x-departures/"+getObj.origin+"/"+getObj.destination+"/"+getObj.date+"/?adult=1&child=0&senior=0&lang="+getBrowserLang;
     // const url = "https://napi.busbud.com/x-departures/dr5reg/f25dvk/2020-08-02?adult=1&child=0&senior=0&lang=en&currency=USD";
     fetch(url, {
@@ -36,13 +40,12 @@ class BusInfo extends Component {
         Accept: 'application/vnd.busbud+json; version=2; profile=https://schema.busbud.com/v2/',
         'X-Busbud-Token': 'PARTNER_AHm3M6clSAOoyJg4KyCg7w'
       }
-
     }).then(function(response) {
       return response.json()
     }, function(error) {
       console.log('error', error.message );
     }).then(data => {
-      //console.log('info',data);
+      console.log('info',data);
       this.setState({
         feed: data,
         city: data.cities,
@@ -52,7 +55,9 @@ class BusInfo extends Component {
       });
 
     })
+
   }
+
   // <p>departure time, the arrival time, the location name</p>
   // <p>the price (use prices.total of the departure)</p>
   render() {
