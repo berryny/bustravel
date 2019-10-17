@@ -50,7 +50,8 @@ class BusInfo extends Component {
     }).then(data => {
       // console.log('url_poll', data.complete);
       this.setState({
-        departures: data.departures,
+        departures_length: data.departures.length,
+        departures: data.departures
       });
 
     })
@@ -72,7 +73,7 @@ class BusInfo extends Component {
     }).then(data => {
       // console.log('info',data, data.complete, data.departures.length);
       console.log('data.complete',data.complete);
-      if (data.complete) {
+      const updateStateData = (data) => {
         this.setState({
           feed: data,
           city: data.cities,
@@ -80,8 +81,13 @@ class BusInfo extends Component {
           departures: data.departures,
           location: data.locations,
           operator: data.operators
-        });
+        })
+      }
+
+      if (data.complete) {
+        updateStateData(data)
       } else {
+        // updateStateData(data)
         this.renderPoll(this.props.data)
       }
 
