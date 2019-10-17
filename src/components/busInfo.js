@@ -34,7 +34,7 @@ class BusInfo extends Component {
   renderPoll(getObj){
     //?index=10
     const url_poll = "https://napi.busbud.com/x-departures/"+getObj.origin+"/"+getObj.destination+"/"+getObj.date+"/poll?index="+this.state.departures_length;
-    // console.log('url_poll',url_poll);
+    console.log('url_poll',url_poll);
     fetch(url_poll, {
       method: "GET",
       headers: {
@@ -86,14 +86,11 @@ class BusInfo extends Component {
 
   }
 
-  renderPagination(e){
-    e.preventDefault();
-    // console.log('renderPagination', e.target, e.target.value);
-  }
   // <p>departure time, the arrival time, the location name</p>
   // <p>the price (use prices.total of the departure)</p>
   render() {
     const pagination_number = this.state.departures
+
     let pagination_return = [];
     const pagination_list = () => {
       for (let i = 0; i < pagination_number.length/10; i++) {
