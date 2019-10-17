@@ -48,8 +48,8 @@ class BusInfo extends Component {
     }, function(error) {
       console.log('error', error.message );
     }).then(data => {
-      console.log('url_poll', data);
-      console.log('url_poll getObj', getObj);
+      // console.log('url_poll', data);
+      // console.log('url_poll getObj', getObj);
       this.setState({
         departures_length: data.departures.length,
         departures: data.departures
@@ -72,24 +72,29 @@ class BusInfo extends Component {
     }, function(error) {
       console.log('error', error.message );
     }).then(data => {
-      // console.log('info',data, data.complete, data.departures.length);
       console.log('data.complete',data.complete);
-      const updateStateData = (data) => {
-        this.setState({
-          feed: data,
-          city: data.cities,
-          departures_length: data.departures.length,
-          departures: data.departures,
-          location: data.locations,
-          operator: data.operators
-        })
-      }
+      // const updateStateData = (data) => {
+      //   this.setState({
+      //     feed: data,
+      //     city: data.cities,
+      //     departures_length: data.departures.length,
+      //     departures: data.departures,
+      //     location: data.locations,
+      //     operator: data.operators
+      //   })
+      // }
+      // updateStateData(data)
 
-      if (data.complete) {
-        updateStateData(data)
-      } else {
-        console.log('else data',data);
-        updateStateData(data)
+      this.setState({
+        feed: data,
+        city: data.cities,
+        departures_length: data.departures.length,
+        departures: data.departures,
+        location: data.locations,
+        operator: data.operators
+      })
+
+      if (data.complete === false) {
         this.renderPoll(this.props.data, data)
       }
 
