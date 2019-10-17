@@ -22,7 +22,8 @@ class Home extends Component {
       getUsersIPFeed: [],
       getNAPIBusbudFeed: [],
       getFormValues: null,
-      value: ''
+      value: '',
+      search_display: "block"
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -50,7 +51,7 @@ class Home extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const thisSet = this.state
-    console.log('state',this.state);
+    // console.log('state',this.state);
     const data = new FormData(event.target);
     const form = event.currentTarget;
     let forms = document.getElementsByClassName('needs-validation');
@@ -60,17 +61,18 @@ class Home extends Component {
 
     if (form.checkValidity() === true) {
       if (getOrigin === getDestination){
-        console.log('select different cities', event.target);
+        // console.log('select different cities', event.target);
         event.target.reset()
       } else {
-        console.log('happy travels')
+        // console.log('happy travels')
           this.setState({
             getFormValues: {
               origin: data.get('bustkts.SelectOrigin'),
               destination: data.get('bustkts.SelectDestination'),
               date: data.get('bustkts.SelectDate'),
               passenger: data.get('bustkts.SelectPassenger')
-            }
+            },
+            search_display: "none"
           });
       }
     }
@@ -78,10 +80,11 @@ class Home extends Component {
 
   render() {
     const form_values = this.state.getFormValues;
+    const sd = this.state.search_display
 
     return (
       <div>
-      <Container>
+      <Container id="search_bus_form" style={{display: sd}} >
         <Form className="form-inline needs-validation" onSubmit={this.handleSubmit} noValidate>
           <Row className="mx-auto">
             <Form.Group controlId="bustkts.SelectOrigin" className="m-2">
@@ -112,6 +115,8 @@ class Home extends Component {
         </Form>
 
       </Container>
+              {/*form_values ? <BusInfo data={this.state.getFormValues}/> : null*/}
+              {/*this.state.getFormValues && <BusInfo data={this.state.getFormValues}/>*/}
               {form_values && <BusInfo data={form_values}/>}
       </div>
 

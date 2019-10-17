@@ -24,7 +24,7 @@ class BusInfo extends Component {
   componentDidMount(){
     // console.log('this.props.data',this.props.data);
     const getObj = this.props.data
-    const url = "https://napi.busbud.com/x-departures/"+getObj.origin+"/"+getObj.destination+"/"+getObj.date+"?adult=1&child=0&senior=0&lang="+getBrowserLang+"&currency=USD";
+    const url = "https://napi.busbud.com/x-departures/"+getObj.origin+"/"+getObj.destination+"/"+getObj.date+"?adult=1&child=0&senior=0&lang="+getBrowserLang;
     // const url = "https://napi.busbud.com/x-departures/dr5reg/f25dvk/2020-08-02?adult=1&child=0&senior=0&lang=en&currency=USD";
     fetch(url, {
       method: "GET",
@@ -38,7 +38,7 @@ class BusInfo extends Component {
     }, function(error) {
       console.log('error', error.message );
     }).then(data => {
-      console.log('info',data);
+      //console.log('info',data);
       this.setState({
         feed: data,
         city: data.cities,
@@ -48,6 +48,7 @@ class BusInfo extends Component {
       });
 
     })
+//    window.location.reload();
 
   }
 
@@ -69,38 +70,54 @@ class BusInfo extends Component {
         }
     })
 
-    const display_price = (price_amount, price_currency) => {
-      console.log('this.state.feed.origin_city_id',this.state.feed.origin_city_id);
-      const num = price_amount/Math.pow(10, price_amount.toString().length-2),
-        num_display = new Intl.NumberFormat('en', { style: 'currency', currency: price_currency }).format(num)
+    const display_price = (price_amount) => {
+      const num = price_amount/Math.pow(10, price_amount.toString().length-2)
+      let num_display
+      this.state.city.map((cityObj, n) => {
+        if ( this.state.feed.origin_city_id === cityObj.id) {
+          num_display = new Intl.NumberFormat(cityObj.region.country.default_locale, { style: 'currency', currency: cityObj.region.country.default_currency }).format(num);
+        }
+      })
       return num_display;
+    }
+
+    const display_departure_time = (get_timestamp) => {
+      const date = new Date(get_timestamp)
+      let format_time
+      this.state.city.map((cityObj, n) => {
+        if ( this.state.feed.origin_city_id === cityObj.id) {
+          format_time = Intl.DateTimeFormat(cityObj.region.country.default_locale,{hour: "numeric", minute: "2-digit"}).format(date)
+        }
+      })
+      return format_time;
     }
 
     const display_buses = this.state.departures.map((ele, idx) =>
     {
-      {/*Show the departure time, the arrival time, the location name and the price (use prices.total of the departure)*/}
-      console.log('ele, idx',ele, idx, this.state.feed.origin_city_id);
+      {/*Show the departure time, the arrival time, the location name and the price (use prices.total of the departure)
+      console.log('ele, idx',ele, idx, this.state.feed.origin_city_id);*/}
         return (
-          <Row className="justify-content-md-center departures p-2 mb-3" key={idx}>
+          <Row className="justify-content-center departures p-2 mb-3 align-items-center" key={idx}>
             <Col xs={12} md={8}>
-              <div className="d-flex flex-row mb-3 justify-content-start">
-                <div className="departuretime mr-3">{ele.departure_time}</div>
+              <div className="d-flex flex-row mb-1 justify-content-start">
+                <div className="departuretime mr-3">{display_departure_time(ele.departure_time)}</div>
                 <div>
                    <span>{display_city(this.state.feed.origin_city_id)}</span> - <span>{display_location(ele.origin_location_id)}</span>
                  </div>
               </div>
-              <div className="d-flex flex-row mb-3 justify-content-start">
-                <div className="departuretime mr-3">{ele.arrival_time}</div>
+              <div className="d-flex flex-row mb-1 justify-content-start align-items-center">
+                <div className="departuretime mr-3">{display_departure_time(ele.arrival_time)}</div>
                 <div>
                    <span>{display_city(this.state.feed.destination_city_id)}</span> - <span>{display_location(ele.destination_location_id)}</span>
                  </div>
               </div>
             </Col>
-            <Col xs={6} md={4}><p>{display_price(ele.prices.total, ele.prices.currency)}</p></Col>
+            <Col xs={6} md={4}>
+              <p>{display_price(ele.prices.total)}</p>
+            </Col>
           </Row>
         )
-    }
-  )
+    })
     return (
       <div>
         <Container><div id="departures" className="m-4">{display_buses}</div></Container>
