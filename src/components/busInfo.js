@@ -154,6 +154,7 @@ class BusInfo extends Component {
 
     const display_buses = this.state.departures.map((ele, idx) =>
     {
+      console.log('repopulate display_buses');
       {/*Show the departure time, the arrival time, the location name and the price (use prices.total of the departure)
       console.log('ele, idx',ele, idx, this.state.feed.origin_city_id);*/}
         return (
