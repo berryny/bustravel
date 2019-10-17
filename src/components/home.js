@@ -80,7 +80,6 @@ class Home extends Component {
 
 
   render() {
-    console.log('this.state',this.state);
     const form_values = this.state.getFormValues;
     const sd = this.state.search_display
 

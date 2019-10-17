@@ -21,17 +21,35 @@ class BusInfo extends Component {
   }
 
   componentDidMount(){
-    // console.log('this.props.data',this.props.data);
     const interval = setInterval(() => {
-      this.pollSearch(this.props.data)
+      this.renderSearch(this.props.data)
     }, 5000);
-    this.pollSearch(this.props.data)
+    this.renderSearch(this.props.data)
     return () => clearInterval(interval);
   }
 
-  pollSearch(getObj){
-    // console.log('getObj',getObj);
-    // const getObj = this.props.data
+  renderPoll(getObj){
+    const url_poll = "https://napi.busbud.com/x-departures/"+getObj.origin+"/"+getObj.destination+"/"+getObj.date+"/poll";
+    fetch(url_poll, {
+      method: "GET",
+      headers: {
+        Accept: 'application/vnd.busbud+json; version=2; profile=https://schema.busbud.com/v2/',
+        'X-Busbud-Token': 'PARTNER_AHm3M6clSAOoyJg4KyCg7w'
+      }
+    }).then(function(response) {
+      return response.json()
+    }, function(error) {
+      console.log('error', error.message );
+    }).then(data => {
+      console.log('url_poll', data.complete);
+      this.setState({
+        departures: data.departures,
+      });
+
+    })
+  }
+
+  renderSearch(getObj){
     const url = "https://napi.busbud.com/x-departures/"+getObj.origin+"/"+getObj.destination+"/"+getObj.date+"/?adult=1&child=0&senior=0&lang="+getBrowserLang;
     // const url = "https://napi.busbud.com/x-departures/dr5reg/f25dvk/2020-08-02?adult=1&child=0&senior=0&lang=en&currency=USD";
     fetch(url, {
@@ -45,14 +63,18 @@ class BusInfo extends Component {
     }, function(error) {
       console.log('error', error.message );
     }).then(data => {
-      console.log('info',data);
-      this.setState({
-        feed: data,
-        city: data.cities,
-        departures: data.departures,
-        location: data.locations,
-        operator: data.operators
-      });
+      // console.log('info',data, data.complete);
+      if (data.complete) {
+        this.setState({
+          feed: data,
+          city: data.cities,
+          departures: data.departures,
+          location: data.locations,
+          operator: data.operators
+        });
+      } else {
+        this.renderSearch(data)
+      }
 
     })
 
