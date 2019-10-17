@@ -36,7 +36,7 @@ class BusInfo extends Component {
   renderPoll(getObj){
     //?index=10
     const url_poll = "https://napi.busbud.com/x-departures/"+getObj.origin+"/"+getObj.destination+"/"+getObj.date+"/poll?index="+this.state.departures_length;
-    console.log('url_poll',url_poll);
+    // console.log('url_poll',url_poll);
     fetch(url_poll, {
       method: "GET",
       headers: {
@@ -72,7 +72,7 @@ class BusInfo extends Component {
     }, function(error) {
       console.log('error', error.message );
     }).then(data => {
-      console.log('data.complete',data.complete);
+      // console.log('data.complete',data, data.complete);
       // const updateStateData = (data) => {
       //   this.setState({
       //     feed: data,
@@ -159,7 +159,7 @@ class BusInfo extends Component {
 
     const display_buses = this.state.departures.map((ele, idx) =>
     {
-      console.log('repopulate display_buses');
+      // console.log('repopulate display_buses');
       {/*Show the departure time, the arrival time, the location name and the price (use prices.total of the departure)
       console.log('ele, idx',ele, idx, this.state.feed.origin_city_id);*/}
         return (
