@@ -29,20 +29,6 @@ class Home extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-/*
-  componentDidMount(){
-    const urlIPAPI = 'https://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,currency';
-    fetch(urlIPAPI).then(function(response) {
-      return response.json()
-    }, function(error) {
-      console.log('error', error.message );
-    }).then(ipdata => {
-      console.log('ipdata',ipdata);
-      this.setState({ getUsersIPFeed: ipdata });
-    });
-  }
-*/
-
   renderOptions (data){
     return data.codes.map((item, o) => (
       <option key={o} value={item.value}>{item.name}</option>
@@ -61,10 +47,8 @@ class Home extends Component {
 
     if (form.checkValidity() === true) {
       if (getOrigin === getDestination){
-        // console.log('select different cities', event.target);
         event.target.reset()
       } else {
-        // console.log('happy travels')
           this.setState({
             getFormValues: {
               origin: data.get('bustkts.SelectOrigin'),
@@ -117,8 +101,6 @@ class Home extends Component {
 
       </Container>
               {form_values ? <BusInfo data={form_values}/> : ''}
-              {/*this.state.getFormValues && <BusInfo data={this.state.getFormValues}/>*/}
-              {/*form_values && <BusInfo data={form_values}/>*/}
       </div>
 
     );
