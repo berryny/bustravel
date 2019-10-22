@@ -28,7 +28,7 @@ class BusInfo extends Component {
   componentDidMount(){
     const interval = setInterval(() => {
       this.renderSearch(this.props.data)
-    }, 20000);
+    }, 120000);
     this.renderSearch(this.props.data)
     return () => clearInterval(interval);
   }
@@ -68,7 +68,7 @@ class BusInfo extends Component {
     }, function(error) {
       console.log('error', error.message );
     }).then(data => {
-
+      console.log('data',data);
       this.setState({
         feed: data,
         city: data.cities,
