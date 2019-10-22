@@ -28,15 +28,13 @@ class BusInfo extends Component {
   componentDidMount(){
     const interval = setInterval(() => {
       this.renderSearch(this.props.data)
-    }, 20000);
+    }, 120000);
     this.renderSearch(this.props.data)
     return () => clearInterval(interval);
   }
 
   renderPoll(getObj){
-    //?index=10
     const url_poll = "https://napi.busbud.com/x-departures/"+getObj.origin+"/"+getObj.destination+"/"+getObj.date+"/poll?index="+this.state.departures_length;
-    // console.log('url_poll',url_poll);
     fetch(url_poll, {
       method: "GET",
       headers: {
@@ -48,8 +46,6 @@ class BusInfo extends Component {
     }, function(error) {
       console.log('error', error.message );
     }).then(data => {
-      // console.log('url_poll', data);
-      // console.log('url_poll getObj', getObj);
       this.setState({
         departures_length: data.departures.length,
         departures: data.departures
@@ -72,19 +68,7 @@ class BusInfo extends Component {
     }, function(error) {
       console.log('error', error.message );
     }).then(data => {
-      // console.log('data.complete',data, data.complete);
-      // const updateStateData = (data) => {
-      //   this.setState({
-      //     feed: data,
-      //     city: data.cities,
-      //     departures_length: data.departures.length,
-      //     departures: data.departures,
-      //     location: data.locations,
-      //     operator: data.operators
-      //   })
-      // }
-      // updateStateData(data)
-
+      console.log('data',data);
       this.setState({
         feed: data,
         city: data.cities,
@@ -159,7 +143,6 @@ class BusInfo extends Component {
 
     const display_buses = this.state.departures.map((ele, idx) =>
     {
-      // console.log('repopulate display_buses');
       {/*Show the departure time, the arrival time, the location name and the price (use prices.total of the departure)
       console.log('ele, idx',ele, idx, this.state.feed.origin_city_id);*/}
         return (
@@ -188,9 +171,6 @@ class BusInfo extends Component {
       <div>
         <Container>
           <div id="departures" className="m-4">{display_buses}</div>
-          {/*<Pagination size="sm" className="justify-content-center">
-            {pagination_list()}
-          </Pagination>*/}
         </Container>
       </div>
 
