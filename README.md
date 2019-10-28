@@ -7,7 +7,6 @@
   - [React Developer Tools](https://reactjs.org/)
   - [Redux DevTools](https://redux.js.org/)
 
-
 ## Pre-installation
 
 Check if the following are installed
