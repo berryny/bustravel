@@ -137,6 +137,7 @@ The app can be found at https://goto-osheaga-festival-2020.herokuapp.com/
 - [Using Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
   - [Learn all about the Fetch API](https://flaviocopes.com/fetch-api/)
 - [IP Geolocation API](https://ip-api.com/)
+- [How to Hide Your API Keys](https://medium.com/better-programming/how-to-hide-your-api-keys-c2b952bc07e6)
 
 ## Fetch_API
 
